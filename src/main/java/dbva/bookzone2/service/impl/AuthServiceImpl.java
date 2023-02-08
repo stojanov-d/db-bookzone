@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -28,8 +29,9 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
 
-        User user = this.userRepository.findUserByName(name);
+        User user = this.userRepository.findUserByName(name).orElse(null);
 
+        assert user != null;
         return new org.springframework.security.core.userdetails.User(
                 user.getName(),user.getPassword(),
                 Stream.of(new SimpleGrantedAuthority("ROLE_"+user.getType().getTypeName())).collect(Collectors.toList())

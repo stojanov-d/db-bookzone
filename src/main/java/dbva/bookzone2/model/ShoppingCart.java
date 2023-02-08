@@ -20,4 +20,12 @@ public class ShoppingCart {
     @OneToOne
     @JoinColumn(name = "kniga_id")
     private Book book;
+
+    public ShoppingCart(User user){
+        this.user = user;
+    }
+
+    public ShoppingCart() {
+
+    }
 }
