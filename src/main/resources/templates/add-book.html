@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add new Book</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <form th:action="@{'/books/{id}' (id=${book?.getId()})}" method="POST">
+                <div class="form-group">
+                    <label for="isbn">ISBN</label>
+                    <input type="text"
+                           class="form-control"
+                           id="isbn"
+                           name="isbn"
+                           th:value="${book?.getId()}"
+                           required
+                           placeholder="Enter book ISBN">
+                </div>
+                <div class="form-group">
+                    <label for="title">Book title</label>
+                    <input type="text"
+                           class="form-control"
+                           id="title"
+                           name="title"
+                           th:value="${book?.getTitle()}"
+                           required
+                           placeholder="Enter book title">
+                </div>
+
+                <div><label>Author</label>
+                    <select name="authorId" class="form-control">
+                        <option th:each="author:${authorList}"
+                                th:text="${author.name+' '+author.surname}"
+                                th:value="${author.id}">
+                        </option>
+                    </select>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="yesRadio">Is this book for sale?</label>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="forSale" id="yesRadio" value="true"
+                               th:checked="${book !=null ? (book.forSale==true) :false}"/>
+                        <label class="form-check-label" for="yesRadio">Yes</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="forSale" id="noRadio" value="false"
+                               th:checked="${book !=null ? (book.forSale==false) :false}"/>
+                        <label class="form-check-label" for="noRadio">No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="price">Price</label>
+                    <input type="text"
+                           class="form-control"
+                           id="price"
+                           name="price"
+                           th:value="${book?.getPrice()}"
+                           placeholder="Price">
+                </div>
+
+                <button id="submit" type="submit" class="btn btn-primary mt-3">Submit</button>
+                <a type="button" class="btn btn-primary mt-3" href="/books">Back</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

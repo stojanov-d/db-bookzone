@@ -1,0 +1,41 @@
+<div class="container">
+    <h1 th:if="${hasError}" th:text="${error}"></h1>
+</div>
+<div class="container">
+    <form class="form-signin mt-xl-5" method="post" action="/register">
+        <h2 class="form-signin-heading">Register</h2>
+        <!--        <input type="date" name="date">-->
+        <p>
+            <label for="name" class="sr-only">Name</label>
+            <input type="text" id="name" name="name" class="form-control" placeholder="Name" required="" autofocus="">
+        </p>
+        <p>
+            <label for="phoneNumber" class="sr-only">Phonenumber</label>
+            <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" placeholder="Phone number" required=""
+                   autofocus="">
+        </p>
+        <p>
+            <label for="surname" class="sr-only">Surname</label>
+            <input type="text" id="surname" name="surname" class="form-control" placeholder="Surname" required=""
+                   autofocus="">
+        </p>
+        <p>
+            <label for="password" class="sr-only">Password</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Password"
+                   required="">
+        </p>
+
+        <p>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" name="type" type="radio" id="ROLE_ADMIN" value="1">
+            <label class="form-check-label" for="ROLE_ADMIN">Bibliotekar</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" name="type"  type="radio" id="ROLE_USER" value="2">
+            <label class="form-check-label" for="ROLE_USER">Korisnik</label>
+        </div>
+        </p>
+        <button class="btn btn-lg btn-primary btn-block mt-3" type="submit">Sign up</button>
+    </form>
+    <a href="/login" class="btn btn-block btn-light mt-3">Already have an account? Login here!</a>
+</div>

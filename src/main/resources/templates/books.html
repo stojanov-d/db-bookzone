@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a th:href="@{'/books/add-book'}" class="btn btn-primary btn-lg mt-3">Add a new book</a>
+<table class="table table-striped my-4">
+    <thead>
+    <tr>
+        <th scope="col">ISBN</th>
+        <th scope="col">Title</th>
+        <th scope="col">Price</th>
+        <th scope="col">Author</th>
+        <th scope="col">Options</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book:${books}" class="book">
+        <td th:text="${book.id}"></td>
+        <td th:text="${book.title}"></td>
+        <td th:text="${book.price}"></td>
+        <td th:text="${authors.get(book.id)}"></td>
+        <td class="text-right">
+            <th:block>
+                <form th:action="@{'/books/{id}/delete' (id=${book.getId()})}"
+                      th:method="DELETE">
+                    <button type="submit"
+                            class="btn btn-sm btn-danger delete-product m-1">
+                        <i class="fa fa-trash">Delete</i>
+                    </button>
+                </form>
+            </th:block>
+            <th:block>
+                <a th:href="@{'/books/{id}/edit-book' (id=${book.getId()})}"
+                   class="btn btn-sm btn-info edit-product m-1">
+                    <i class="fa-solid fa-pen-to-square">Edit</i>
+                </a>
+            </th:block>
+            <form>
+                <button type="submit"
+                        class="btn btn-sm btn-primary cart-product m-1">
+                    <i class="fa-solid fa-cart-shopping">Add book to cart</i>
+                </button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
