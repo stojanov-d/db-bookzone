@@ -24,8 +24,8 @@ public class Book {
     @ManyToOne
     @JoinColumn(name = "izd_id")
     private PublishingHouse publishingHouse;
-    @ManyToOne
-    private ShoppingCart shoppingCart;
+//    @ManyToOne
+//    private ShoppingCart shoppingCart;
     public Book(String isbn, String title, Integer rating, Boolean forSale, Integer price) {
         this.id = isbn;
         this.title = title;

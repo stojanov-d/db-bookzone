@@ -34,6 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/*").hasRole("Библиотекар")
                 .and()
                 .formLogin()
+                .loginPage("/login")
                 .failureUrl("/login?error=BadCredentials")
                 .defaultSuccessUrl("/books", true)
                 .and()

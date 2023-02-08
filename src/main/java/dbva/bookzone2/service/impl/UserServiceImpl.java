@@ -27,4 +27,6 @@ public class UserServiceImpl implements UserService {
         User user = new User(name,surname,phoneNumber,joinedDate,password,userType);
         return this.userRepository.save(user);
     }
+
+
 }

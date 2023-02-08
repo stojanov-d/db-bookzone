@@ -17,8 +17,7 @@ public class ShoppingCart {
     @OneToOne
     @JoinColumn(name = "klient_id")
     private User user;
-    @OneToMany
-    @JoinColumn(name = "isbn")
-    @Column(name = "kniga_id")
-    private List<Book> books;
+    @OneToOne
+    @JoinColumn(name = "kniga_id")
+    private Book book;
 }

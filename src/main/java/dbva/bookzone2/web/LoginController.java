@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class LoginController {
@@ -27,9 +28,11 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String login(HttpServletRequest request, @RequestParam String name, @RequestParam String password){
-        UserDetails userDetails = this.authService.loginUser(name, password);
-        request.getSession().setAttribute("user",userDetails);
+    public String login(@RequestParam String username, @RequestParam String password, HttpSession session){
+        UserDetails userDetails = this.authService.loginUser(username, password);
+        session.setAttribute("user",userDetails);
+
+        //TODO: Dodaj da se kreira nova kosnicka za ovaj user pri login
         return "redirect:/";
     }
 }

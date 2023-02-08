@@ -13,11 +13,9 @@ import java.util.List;
 public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     private final ShoppingCartRepository shoppingCartRepository;
-    private final BookRepository bookRepository;
 
-    public ShoppingCartServiceImpl(ShoppingCartRepository shoppingCartRepository, BookRepository bookRepository) {
+    public ShoppingCartServiceImpl(ShoppingCartRepository shoppingCartRepository) {
         this.shoppingCartRepository = shoppingCartRepository;
-        this.bookRepository = bookRepository;
     }
 
 
@@ -25,6 +23,22 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     public ShoppingCart findById(Integer id) {
         ShoppingCart shoppingCart = this.shoppingCartRepository.findById(id).orElseThrow();
         return shoppingCart;
+    }
+
+    @Override
+    public ShoppingCart addToShoppingCart(String isbn, Integer id) {
+        return null;
+    }
+
+    @Override
+    public void removeFromShoppingCart(String isbn, Integer id) {
+
+    }
+
+    @Override
+    public ShoppingCart findByUserName(String name) {
+
+        return this.shoppingCartRepository.findShoppingCartByUser_Name(name);
     }
 
 

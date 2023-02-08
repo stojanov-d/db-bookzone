@@ -27,6 +27,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
+
         User user = this.userRepository.findUserByName(name);
 
         return new org.springframework.security.core.userdetails.User(
