@@ -1,6 +1,7 @@
 package dbva.bookzone2.service.impl;
 
 import dbva.bookzone2.model.Book;
+import dbva.bookzone2.model.exceptions.InvalidBookIdException;
 import dbva.bookzone2.repository.BookRepository;
 import dbva.bookzone2.service.BookService;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book findById(String id) {
-        Book book = this.bookRepository.findById(id).orElseThrow();
+        Book book = this.bookRepository.findById(id).orElseThrow(InvalidBookIdException::new);
         return book;
     }
 
@@ -35,7 +36,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book editBook(String isbnToEdit, String isbn, String title, Integer rating, Boolean forSale, Integer price) {
-        Book book = this.bookRepository.findById(isbnToEdit).orElseThrow();
+        Book book = this.bookRepository.findById(isbnToEdit).orElseThrow(InvalidBookIdException::new);
 
         book.setId(isbn);
         book.setTitle(title);
@@ -47,7 +48,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void delete(String isbn) {
-        Book book = this.bookRepository.findById(isbn).orElseThrow();
+        Book book = this.bookRepository.findById(isbn).orElseThrow(InvalidBookIdException::new);
         this.bookRepository.delete(book);
     }
 }

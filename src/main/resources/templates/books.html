@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<a th:href="@{'/books/add-book'}" class="btn btn-primary btn-lg mt-3">Add a new book</a>
+<a th:href="@{'/books/add-book'}" class="btn btn-primary btn-lg m-2" sec:authorize="hasRole('Библиотекар')">Add a new book</a>
+<a th:href="@{'/shopping-cart'}" class="btn btn-primary btn-lg m-2" sec:authorize="isAuthenticated()">Go to shopping cart!</a>
+
 <table class="table table-striped my-4">
     <thead>
     <tr>
@@ -23,7 +25,7 @@
         <td th:text="${book.price}"></td>
         <td th:text="${authors.get(book.id)}"></td>
         <td class="text-right">
-            <th:block>
+            <th:block sec:authorize="hasRole('Библиотекар')">
                 <form th:action="@{'/books/{id}/delete' (id=${book.getId()})}"
                       th:method="DELETE">
                     <button type="submit"
@@ -32,13 +34,13 @@
                     </button>
                 </form>
             </th:block>
-            <th:block>
+            <th:block sec:authorize="hasRole('Библиотекар')">
                 <a th:href="@{'/books/{id}/edit-book' (id=${book.getId()})}"
                    class="btn btn-sm btn-info edit-product m-1">
                     <i class="fa-solid fa-pen-to-square">Edit</i>
                 </a>
             </th:block>
-            <form>
+            <form sec:authorize="isAuthenticated()">
                 <button type="submit"
                         class="btn btn-sm btn-primary cart-product m-1">
                     <i class="fa-solid fa-cart-shopping">Add book to cart</i>
