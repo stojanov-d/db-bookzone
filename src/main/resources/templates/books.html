@@ -40,7 +40,7 @@
                     <i class="fa-solid fa-pen-to-square">Edit</i>
                 </a>
             </th:block>
-            <form sec:authorize="isAuthenticated()" th:action="@{'/buy'}" th:method="POST">
+            <form sec:authorize="hasRole('Корисник')" th:action="@{'/buy'}" th:method="POST">
                 <input type="hidden" th:value="${book.id}" name="isbn">
                 <button type="submit"
                         class="btn btn-sm btn-primary cart-product m-1">

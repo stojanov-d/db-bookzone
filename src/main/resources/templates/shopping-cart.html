@@ -19,12 +19,15 @@
                             <div class="row d-flex justify-content-between align-items-center">
                                 <div class="col-md-2 col-lg-2 col-xl-2">
                                     <img
-                                            src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img1.webp"
+                                            src="https://img.freepik.com/free-icon/library_318-846966.jpg"
                                             class="img-fluid rounded-3" alt="Cotton T-shirt">
                                 </div>
                                 <div class="col-md-3 col-lg-3 col-xl-3">
-                                    <p class="lead fw-normal mb-2" th:text="${cart.book?.title}"></p>
-                                    <p><span class="text-muted">Size: </span>M <span class="text-muted">Color: </span>Grey
+                                    <h3 class="lead fw-normal mb-2" >Title: <th:block th:text="${cart.book?.title}"></th:block></h3>
+<!--                                    <p class="lead fw-normal mb-2" th:text="${cart.book?.title}"></p>-->
+                                    <p><span class="text-muted">Author: <th:block th:text="${authors?.get(cart.book?.id)}"></th:block></span>
+                                        <br/>
+                                        <span class="text-muted">ISBN: <th:block th:text="${cart.book?.id}"></th:block> </span>
                                     </p>
                                 </div>
                                 <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
@@ -42,7 +45,7 @@
                                     </button>
                                 </div>
                                 <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                    <h5 class="mb-0">$499.00</h5>
+                                    <h5 class="mb-0"><th:block th:text="${cart.book?.price}"></th:block>den.</h5>
                                 </div>
                                 <div class="col-md-1 col-lg-1 col-xl-1 text-end">
                                     <a href="#!" class="text-danger"><i class="fas fa-trash fa-lg"></i></a>
@@ -56,15 +59,15 @@
                     </div>
 
 
-                    <div class="card mb-4" th:if="${cart != null}">
-                        <div class="card-body p-4 d-flex flex-row">
-                            <div class="form-outline flex-fill">
-                                <input type="text" id="form2" class="form-control form-control-lg"/>
-                                <label class="form-label" for="form1">Discount code</label>
-                            </div>
-                            <button type="button" class="btn btn-outline-warning btn-lg ms-3">Apply</button>
-                        </div>
-                    </div>
+<!--                    <div class="card mb-4" th:if="${cart != null}">-->
+<!--                        <div class="card-body p-4 d-flex flex-row">-->
+<!--                            <div class="form-outline flex-fill">-->
+<!--                                <input type="text" id="form2" class="form-control form-control-lg"/>-->
+<!--                                <label class="form-label" for="form1">Discount code</label>-->
+<!--                            </div>-->
+<!--                            <button type="button" class="btn btn-outline-warning btn-lg ms-3">Apply</button>-->
+<!--                        </div>-->
+<!--                    </div>-->
 
                     <div class="card" th:if="${cart != null}">
                         <div class="card-body">

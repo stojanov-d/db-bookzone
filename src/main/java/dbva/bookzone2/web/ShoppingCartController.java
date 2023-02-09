@@ -4,6 +4,7 @@ import dbva.bookzone2.model.ShoppingCart;
 import dbva.bookzone2.model.User;
 import dbva.bookzone2.service.ShoppingCartService;
 import dbva.bookzone2.service.UserService;
+import dbva.bookzone2.service.WroteService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -16,10 +17,12 @@ public class ShoppingCartController {
 
     private final UserService userService;
     private final ShoppingCartService shoppingCartService;
+    private final WroteService wroteService;
 
-    public ShoppingCartController(UserService userService, ShoppingCartService shoppingCartService) {
+    public ShoppingCartController(UserService userService, ShoppingCartService shoppingCartService, WroteService wroteService) {
         this.userService = userService;
         this.shoppingCartService = shoppingCartService;
+        this.wroteService = wroteService;
     }
 
     @GetMapping("/shopping-cart")
@@ -34,6 +37,7 @@ public class ShoppingCartController {
             model.addAttribute("cart",shoppingCart);
         }
         model.addAttribute("bodyContent","shopping-cart");
+        model.addAttribute("authors",this.wroteService.findAuthorsOfBooks());
         return "master-page";
     }
 }
