@@ -16,5 +16,5 @@ public interface ShoppingCartService {
 
     void removeFromShoppingCart(String isbn,Integer id);
 
-    ShoppingCart findByUserName(String name);
+    ShoppingCart findByUserId(Integer id);
 }

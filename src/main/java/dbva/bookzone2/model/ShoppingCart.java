@@ -18,11 +18,12 @@ public class ShoppingCart {
     @JoinColumn(name = "klient_id")
     private User user;
     @OneToOne
-    @JoinColumn(name = "kniga_id")
+    @JoinColumn(name = "kniga_id", nullable = true)
     private Book book;
 
     public ShoppingCart(User user){
         this.user = user;
+        this.book = null;
     }
 
     public ShoppingCart() {

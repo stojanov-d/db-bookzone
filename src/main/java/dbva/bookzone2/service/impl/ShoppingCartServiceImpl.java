@@ -8,15 +8,15 @@ import dbva.bookzone2.repository.ShoppingCartRepository;
 import dbva.bookzone2.service.ShoppingCartService;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     private final ShoppingCartRepository shoppingCartRepository;
+    private final BookRepository bookRepository;
 
-    public ShoppingCartServiceImpl(ShoppingCartRepository shoppingCartRepository) {
+    public ShoppingCartServiceImpl(ShoppingCartRepository shoppingCartRepository, BookRepository bookRepository) {
         this.shoppingCartRepository = shoppingCartRepository;
+        this.bookRepository = bookRepository;
     }
 
 
@@ -28,7 +28,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public ShoppingCart createNewShoppingCart(User user) {
-        ShoppingCart shoppingCart = new ShoppingCart(user);
+        ShoppingCart shoppingCart = new ShoppingCart();
+        shoppingCart.setUser(user);
+        shoppingCart.setBook(null);
         return this.shoppingCartRepository.save(shoppingCart);
     }
 
@@ -43,9 +45,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public ShoppingCart findByUserName(String name) {
+    public ShoppingCart findByUserId(Integer id) {
 
-        return this.shoppingCartRepository.findShoppingCartByUser_Name(name);
+        return this.shoppingCartRepository.findShoppingCartByUser_Id(id);
     }
 
 

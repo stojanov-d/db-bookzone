@@ -1,6 +1,7 @@
 package dbva.bookzone2.web;
 
 import dbva.bookzone2.model.ShoppingCart;
+import dbva.bookzone2.model.User;
 import dbva.bookzone2.service.ShoppingCartService;
 import dbva.bookzone2.service.UserService;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,10 +25,15 @@ public class ShoppingCartController {
     @GetMapping("/shopping-cart")
     private String shoppingCartPage(Model model){
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        ShoppingCart shoppingCart = this.shoppingCartService.findByUserName(user.getUsername());
-
+        User user1 = this.userService.findByName(user.getUsername());
+        if(user1.getShoppingCart()==null){
+            ShoppingCart shoppingCart = this.shoppingCartService.createNewShoppingCart(user1);
+            model.addAttribute("bodyContent",shoppingCart);
+        }else{
+            ShoppingCart shoppingCart = this.shoppingCartService.findByUserId(user1.getId());
+            model.addAttribute("cart",shoppingCart);
+        }
         model.addAttribute("bodyContent","shopping-cart");
-        model.addAttribute("cart",shoppingCart);
         return "master-page";
     }
 }

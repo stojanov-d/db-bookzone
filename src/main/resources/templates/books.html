@@ -6,7 +6,7 @@
 </head>
 <body>
 <a th:href="@{'/books/add-book'}" class="btn btn-primary btn-lg m-2" sec:authorize="hasRole('Библиотекар')">Add a new book</a>
-<a th:href="@{'/shopping-cart'}" class="btn btn-primary btn-lg m-2" sec:authorize="isAuthenticated()">Go to shopping cart!</a>
+<a th:href="@{'/shopping-cart'}" class="btn btn-primary btn-lg m-2" sec:authorize="hasRole('Корисник')">Go to shopping cart!</a>
 
 <table class="table table-striped my-4">
     <thead>

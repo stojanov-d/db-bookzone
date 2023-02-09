@@ -1,5 +1,6 @@
 package dbva.bookzone2.web;
 
+import dbva.bookzone2.model.User;
 import dbva.bookzone2.service.AuthService;
 import dbva.bookzone2.service.ShoppingCartService;
 import dbva.bookzone2.service.UserService;
@@ -35,11 +36,12 @@ public class LoginController {
     @PostMapping("/login")
     public String login(@RequestParam String username, @RequestParam String password, HttpSession session){
         UserDetails userDetails = this.authService.loginUser(username, password);
-
         if(userDetails==null){
             return "redirect:/register";
         }
+
         session.setAttribute("user",userDetails);
+
 
         return "redirect:/";
     }
