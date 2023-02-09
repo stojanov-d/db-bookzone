@@ -3,8 +3,11 @@ package dbva.bookzone2.service.impl;
 import dbva.bookzone2.model.Book;
 import dbva.bookzone2.model.ShoppingCart;
 import dbva.bookzone2.model.User;
+import dbva.bookzone2.model.exceptions.InvalidBookIdException;
+import dbva.bookzone2.model.exceptions.InvalidUserIdException;
 import dbva.bookzone2.repository.BookRepository;
 import dbva.bookzone2.repository.ShoppingCartRepository;
+import dbva.bookzone2.repository.UserRepository;
 import dbva.bookzone2.service.ShoppingCartService;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +16,12 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     private final ShoppingCartRepository shoppingCartRepository;
     private final BookRepository bookRepository;
+    private final UserRepository userRepository;
 
-    public ShoppingCartServiceImpl(ShoppingCartRepository shoppingCartRepository, BookRepository bookRepository) {
+    public ShoppingCartServiceImpl(ShoppingCartRepository shoppingCartRepository, BookRepository bookRepository, UserRepository userRepository) {
         this.shoppingCartRepository = shoppingCartRepository;
         this.bookRepository = bookRepository;
+        this.userRepository = userRepository;
     }
 
 
@@ -36,7 +41,12 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public ShoppingCart addToShoppingCart(String isbn, Integer id) {
-        return null;
+        Book book = this.bookRepository.findById(isbn).orElseThrow(InvalidBookIdException::new);
+        User user = this.userRepository.findById(id).orElseThrow(InvalidUserIdException::new);
+        ShoppingCart shoppingCart = this.shoppingCartRepository.findShoppingCartByUser_Id(user.getId());
+
+        shoppingCart.setBook(book);
+        return this.shoppingCartRepository.save(shoppingCart);
     }
 
     @Override

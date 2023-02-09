@@ -2,10 +2,10 @@ package dbva.bookzone2.web;
 
 import dbva.bookzone2.model.Author;
 import dbva.bookzone2.model.Book;
-import dbva.bookzone2.model.relations.WroteRelation;
-import dbva.bookzone2.service.AuthorService;
-import dbva.bookzone2.service.BookService;
-import dbva.bookzone2.service.WroteService;
+import dbva.bookzone2.model.User;
+import dbva.bookzone2.service.*;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,11 +22,15 @@ public class BooksController {
     private final BookService bookService;
     private final WroteService wroteService;
     private final AuthorService authorService;
+    private final ShoppingCartService shoppingCartService;
+    private final UserService userService;
 
-    public BooksController(BookService bookService, WroteService wroteService, AuthorService authorService) {
+    public BooksController(BookService bookService, WroteService wroteService, AuthorService authorService, ShoppingCartService shoppingCartService, UserService userService) {
         this.bookService = bookService;
         this.wroteService = wroteService;
         this.authorService = authorService;
+        this.shoppingCartService = shoppingCartService;
+        this.userService = userService;
     }
 
     @GetMapping({"/books","/"})
@@ -86,6 +90,14 @@ public class BooksController {
     public String delete(@PathVariable String id){
         this.bookService.delete(id);
         return "redirect:/books";
+    }
+
+    @PostMapping("/buy")
+    public String addToShoppingCart(@RequestParam String isbn){
+        UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user1 = this.userService.findByName(user.getUsername());
+        this.shoppingCartService.addToShoppingCart(isbn,user1.getId());
+        return "redirect:/shopping-cart";
     }
 
 
