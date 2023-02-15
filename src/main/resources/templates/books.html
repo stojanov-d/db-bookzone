@@ -22,7 +22,7 @@
     <tr th:each="book:${books}" class="book">
         <td th:text="${book.id}"></td>
         <td th:text="${book.title}"></td>
-        <td th:text="${book.price}"></td>
+        <td th:text="${book.price+' '+'den.'}"></td>
         <td th:text="${authors.get(book.id)}"></td>
         <td class="text-right">
             <th:block sec:authorize="hasRole('Библиотекар')">

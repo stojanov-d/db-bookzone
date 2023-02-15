@@ -2,6 +2,7 @@ package dbva.bookzone2.web;
 
 import dbva.bookzone2.model.Author;
 import dbva.bookzone2.model.Book;
+import dbva.bookzone2.model.ShoppingCart;
 import dbva.bookzone2.model.User;
 import dbva.bookzone2.service.*;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,13 +25,15 @@ public class BooksController {
     private final AuthorService authorService;
     private final ShoppingCartService shoppingCartService;
     private final UserService userService;
+    private final IntoShoppingCartService intoShoppingCartService;
 
-    public BooksController(BookService bookService, WroteService wroteService, AuthorService authorService, ShoppingCartService shoppingCartService, UserService userService) {
+    public BooksController(BookService bookService, WroteService wroteService, AuthorService authorService, ShoppingCartService shoppingCartService, UserService userService, IntoShoppingCartService intoShoppingCartService) {
         this.bookService = bookService;
         this.wroteService = wroteService;
         this.authorService = authorService;
         this.shoppingCartService = shoppingCartService;
         this.userService = userService;
+        this.intoShoppingCartService = intoShoppingCartService;
     }
 
     @GetMapping({"/books","/"})
@@ -96,8 +99,11 @@ public class BooksController {
     public String addToShoppingCart(@RequestParam String isbn){
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user1 = this.userService.findByName(user.getUsername());
+        ShoppingCart shoppingCart = this.shoppingCartService.findByUserId(user1.getId());
         this.shoppingCartService.addToShoppingCart(isbn,user1.getId());
+        this.intoShoppingCartService.addBookToShoppingCart(isbn,shoppingCart.getId());
         return "redirect:/shopping-cart";
+
     }
 
 
