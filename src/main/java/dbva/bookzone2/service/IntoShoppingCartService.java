@@ -10,4 +10,6 @@ public interface IntoShoppingCartService {
     List<Book> showAllBooksInCart(Integer cartId);
 
     IntoShoppingCartRelation addBookToShoppingCart(String bookId,Integer cartId);
+
+    void removeBookFromCart(String id,Integer cartId);
 }

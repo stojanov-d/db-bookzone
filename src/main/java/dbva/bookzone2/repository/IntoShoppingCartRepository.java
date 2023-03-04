@@ -11,4 +11,6 @@ import java.util.List;
 public interface IntoShoppingCartRepository extends JpaRepository<IntoShoppingCartRelation, IntoShoppingCartID> {
 
     List<IntoShoppingCartRelation> findAllById_ShoppingCartId(Integer id);
+
+    void deleteById_BookIdAndId_ShoppingCartId(String isbn,Integer cartId);
 }

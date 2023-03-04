@@ -48,7 +48,13 @@
                                     <h5 class="mb-0"><th:block th:text="${book.price}"></th:block>den.</h5>
                                 </div>
                                 <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                    <a href="#!" class="text-danger"><i class="fas fa-trash fa-lg"></i></a>
+                                    <form th:method="DELETE" th:action="@{'/shopping-cart/{id}/delete' (id=${book.getId()})}">
+                                        <button type="submit"
+                                                class="btn btn-sm btn-danger delete-product m-1">
+                                            <i class="fas fa-trash fa-lg"></i>
+                                        </button>
+                                    </form>
+<!--                                    <a href="#!" class="text-danger"></a>-->
                                 </div>
                             </div>
                         </div>
@@ -71,7 +77,7 @@
 
                     <div class="card" th:if="${cart != null}">
                         <div class="card-body">
-                            <button type="button" class="btn btn-warning btn-block btn-lg">Proceed to Pay</button>
+                            <button type="button" class="btn btn-warning btn-block btn-lg" disabled>Proceed to Pay</button>
                         </div>
                     </div>
 

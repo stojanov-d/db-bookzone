@@ -8,6 +8,7 @@ import dbva.bookzone2.repository.BookRepository;
 import dbva.bookzone2.repository.IntoShoppingCartRepository;
 import dbva.bookzone2.service.IntoShoppingCartService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,12 @@ public class IntoShoppingCartServiceImpl implements IntoShoppingCartService {
         intoShoppingCartRelation.getId().setShoppingCartId(cartId);
         intoShoppingCartRelation.getId().setBookId(bookId);
         return this.intoShoppingCartRepository.save(intoShoppingCartRelation);
+    }
+
+    @Override
+    @Transactional
+    public void removeBookFromCart(String id, Integer cartId) {
+        this.intoShoppingCartRepository.deleteById_BookIdAndId_ShoppingCartId(id,cartId);
     }
 
 
